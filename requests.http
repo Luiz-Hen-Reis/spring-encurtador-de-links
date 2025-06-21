@@ -1,0 +1,23 @@
+### Create a short link
+POST http://localhost:8080/shorten
+Content-Type: application/json
+
+{
+  "url": "https://www.google.com/"
+}
+
+### Get short link
+GET http://localhost:8080/bf60280d
+Content-Type: application/json
+
+### Get information about the short link
+GET http://localhost:8080/links/ad830615
+Content-Type: application/json
+
+### Get all short links
+GET http://localhost:8080/links
+Content-Type: application/json
+
+### Delete a short link
+DELETE http://localhost:8080/links/bf60280d
+Content-Type: application/json
