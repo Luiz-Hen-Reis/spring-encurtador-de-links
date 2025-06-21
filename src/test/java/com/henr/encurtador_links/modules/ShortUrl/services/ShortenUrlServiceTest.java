@@ -26,4 +26,14 @@ public class ShortenUrlServiceTest {
        assertThat(createdShortUrl.originalUrl()).isEqualTo("https://google.com");
        assertThat(createdShortUrl.shortCode()).isNotBlank();
     }
+
+    @Test
+    public void should_throw_exception_for_invalid_url() {
+        String invalidUrl = "htp://invalid-url";
+        try {
+            shortenUrlService.execute(invalidUrl);
+        } catch (IllegalArgumentException e) {
+            assertThat(e.getMessage()).isEqualTo("Invalid URL format");
+        }
+    }
 }

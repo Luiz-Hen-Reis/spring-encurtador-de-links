@@ -21,4 +21,10 @@ public class GlobalExceptionHandler {
         var response = new ExceptionResponseDTO(ex.getMessage());
         return ResponseEntity.status(HttpStatus.GONE).body(response);
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ExceptionResponseDTO> handleIllegalArgumentException(IllegalArgumentException ex) {
+        var response = new ExceptionResponseDTO(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+    }
 }

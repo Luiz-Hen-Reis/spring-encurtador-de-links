@@ -18,7 +18,21 @@ public class ShortenUrlService {
     @Autowired
     private ShortUrlRepository shortUrlRepository;
 
+    private static final String URL_REGEX =
+    "^(https?:\\/\\/)" +                     // http:// ou https://
+    "((([a-zA-Z0-9\\-]+\\.)+[a-zA-Z]{2,})" + // domínio: exemplo.com, sub.exemplo.com
+    "|localhost" +                          // ou localhost
+    "|\\d{1,3}(\\.\\d{1,3}){3})" +           // ou IP: 192.168.0.1
+    "(:\\d{1,5})?" +                         // porta opcional: :8080
+    "(\\/[^\\s]*)?$";                        // caminho/query/fragmento opcional
+
+
     public ShortUrlResponseDTO execute(String originalUrl) {
+
+        if (!originalUrl.matches(URL_REGEX)) {
+            throw new IllegalArgumentException("Invalid URL format");
+        }
+
         ShortUrlEntity shortUrl = new ShortUrlEntity();
         shortUrl.setOriginalUrl(originalUrl);
         shortUrl.setShortCode(generateShortCode());
